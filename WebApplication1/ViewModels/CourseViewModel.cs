@@ -17,5 +17,6 @@ namespace WebApplication1.ViewModels
         {
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));
         }
+
     }
 }
