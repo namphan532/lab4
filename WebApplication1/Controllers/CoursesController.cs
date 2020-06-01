@@ -49,6 +49,7 @@ namespace WebApplication1.Controllers
             _dbContext.Courses.Add(course);
             _dbContext.SaveChanges();
 
+
             return RedirectToAction("Index", "Home");
         }
     }
