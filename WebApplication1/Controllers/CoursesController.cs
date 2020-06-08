@@ -36,8 +36,14 @@ namespace WebApplication1.Controllers
         // GET: Courses
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Categories = _dbContext.Categories.ToList();
+                return View("Create", viewModel);
+            }
             var course = new Course
             {
                 LecturedId = User.Identity.GetUserId(),
