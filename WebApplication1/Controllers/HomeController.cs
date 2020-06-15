@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using System.Data.Entity;
+using WebApplication1.ViewModels;
 
 namespace WebApplication1.Controllers
 {
+
     public class HomeController : Controller
     {
         private ApplicationDbContext _dbContext;
+
         public HomeController()
         {
             _dbContext = new ApplicationDbContext();
@@ -18,12 +21,19 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             var upcommingCourses = _dbContext.Courses
-                .Include(c =>c.Lecturer)
+                .Include(c => c.Lecturer)
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
-            return View(upcommingCourses);
-        }
 
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = upcommingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
+
+
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

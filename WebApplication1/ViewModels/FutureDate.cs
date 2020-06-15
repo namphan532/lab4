@@ -8,7 +8,6 @@ using System.Web;
 namespace WebApplication1.ViewModels
 {
     public class FutureDate : ValidationAttribute
-
     {
         public override bool IsValid(object value)
         {
@@ -18,7 +17,9 @@ namespace WebApplication1.ViewModels
                 CultureInfo.CurrentCulture,
                 DateTimeStyles.None,
                 out dateTime);
-            return (isValid && dateTime > DateTime.Now); 
+
+            return (isValid && dateTime > DateTime.Now);
         }
+
     }
 }
